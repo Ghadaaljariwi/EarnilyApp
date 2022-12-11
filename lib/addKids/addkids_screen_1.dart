@@ -1,7 +1,7 @@
 // ignore_for_file: camel_case_types, library_private_types_in_public_api
 
-import 'package:earnily/reuasblewidgets.dart';
-import 'package:earnily/screen/profile_screen.dart';
+import 'package:earnilyapp/reuasblewidgets.dart';
+import 'package:earnilyapp/screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
@@ -118,24 +118,8 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
         addKidDetails();
         showToastMessage("تمت إضافة الطفل بنجاح");
 
-        /*  Notifications.showNotification(
-          title: "EARNILY",
-          body: ' لديك نشاط جديد بأنتظارك',
-          payload: 'earnily',
-        );*/
-
         Navigator.of(context).pop();
-        // setState(getKids(Provider.of<KidsNotifier>(context, listen: false)));
-
-        /*
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (BuildContext context) {
-            return KidsjoinviaQRcode_screen_1(); //QrCreateScreen("اضافة طفل");
-          },
-        ),
-      );*/
-      } // push,
+      }
     }
   }
 
@@ -152,7 +136,7 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
         .collection('users')
         .doc(user.uid)
         .collection('kids')
-        .doc(nameController.text + '@gmail.com')
+        .doc( u.substring(0, 8) + '@gmail.com')
         .set({
       'name': nameController.text,
       'gender': value,
@@ -165,7 +149,7 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
 
     await FirebaseFirestore.instance
         .collection('kids')
-        .doc(nameController.text + '@gmail.com')
+        .doc( u.substring(0, 8) + '@gmail.com')
         .set({
       'name': nameController.text,
       'gender': value,
@@ -176,10 +160,7 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
       'points': 0,
     });
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: nameController.text + '@gmail.com', password: u.substring(0, 8));
-    await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: user.email!, password: '123456');
-    // await FirebaseAuth.instance.signOut();
+        email: u.substring(0, 8) + '@gmail.com', password: '12345678');
   }
 
   void _showDatePicker() async => showDatePicker(
@@ -308,21 +289,6 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
                             )),
                       ),
                     ),
-                    // reuasbleTextField(
-                    //     "الاسم ", Icons.person, false, nameController),
-                    // SizedBox(
-                    //   height: 20,
-                    // ),
-                    // Align(
-                    //   alignment: Alignment.centerRight,
-                    //   child: Text(
-                    //     " الجنس",
-                    //     style: TextStyle(
-                    //         color: Colors.black,
-                    //         fontSize: 18,
-                    //         fontWeight: FontWeight.bold),
-                    //   ),
-                    // ),
 
                     Positioned(
                         right: 107,

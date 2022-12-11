@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types, library_private_types_in_public_api
 
-
-import 'package:earnily/screen/profile_screen.dart';
+import 'package:earnilyapp/screen/profile_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,8 +11,6 @@ import 'dart:ui' as ui;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-
 
 class Add_task extends StatefulWidget {
   const Add_task({super.key});
@@ -27,16 +24,10 @@ class _Add_taskState extends State<Add_task> {
   //notification
 
   void initState() {
-    // namesListClass forThePurposeOfTheList = namesListClass();
-    // updateList(forThePurposeOfTheList);
-    // forThePurposeOfTheList.kidsNamesList;
-
     super.initState();
 
-    //  List<String> list = lstKids() as List<String>;
   }
 
-  //final List<String> list = <String>['سعد', 'ريما', 'خالد'];
   final user = FirebaseAuth.instance.currentUser!;
 
   final _formKey = GlobalKey<FormState>();
@@ -135,7 +126,6 @@ class _Add_taskState extends State<Add_task> {
       addTask();
 
       showToastMessage("تمت إضافة نشاط بنجاح");
-
 
       Navigator.of(context).pop();
     } else {

@@ -2,10 +2,10 @@
 
 // import 'package:earnily/google_signin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:earnily/pages/home_page.dart';
-import 'package:earnily/screen/signin_screen.dart';
-import 'package:earnily/widgets/new_button.dart';
-import 'package:earnily/widgets/new_text.dart';
+import 'package:earnilyapp/pages/home_page.dart';
+import 'package:earnilyapp/screen/signin_screen.dart';
+import 'package:earnilyapp/widgets/new_button.dart';
+import 'package:earnilyapp/widgets/new_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

@@ -1,6 +1,6 @@
 import 'dart:ui' as ui;
 
-import 'package:earnily/Rewards/addReward.dart';
+import 'package:earnilyapp/Rewards/addReward.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';

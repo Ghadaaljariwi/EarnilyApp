@@ -1,24 +1,11 @@
-import 'package:earnily/addKids/addkids_screen_1.dart';
-import 'package:earnily/addKids/adultKids.dart';
 
-import 'package:earnily/onbording.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
-//import 'package:earnily/pages/register_page.dart';
+import 'package:earnilyapp/onbording.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-//import 'package:qr_generator_tutorial/ui/style/style.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'dart:ui' as ui;
 
-import 'package:provider/provider.dart';
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
-  print('Handling a background message ${message.messageId}');
-} 
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,14 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: QrImage(
-              data: data,
-              backgroundColor: Colors.white,
-              version: QrVersions.auto,
-              size: 300.0,
-            ),
-          ),
+     
           SizedBox(
             height: 24,
           ),

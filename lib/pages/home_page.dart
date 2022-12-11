@@ -1,10 +1,9 @@
 
-import 'package:earnily/Rewards/MainRewards.dart';
-import 'package:earnily/addKids/adultKids.dart';
-import 'package:earnily/chatting/chatScreen.dart';
-import 'package:earnily/screen/profile_screen.dart';
-import 'package:earnily/screen/signin_screen.dart';
-import 'package:earnily/widgets/MainTask.dart';
+import 'package:earnilyapp/Rewards/MainRewards.dart';
+import 'package:earnilyapp/addKids/adultKids.dart';
+import 'package:earnilyapp/screen/profile_screen.dart';
+import 'package:earnilyapp/screen/signin_screen.dart';
+import 'package:earnilyapp/widgets/MainTask.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -75,7 +74,6 @@ class _HomePageState extends State<HomePage> {
     MainTask(),
    
     MainRewards(),
-    ChatScreen(),
   ];
 
   @override
@@ -221,21 +219,13 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
             size: 35,
           ),
-          Icon(
-            Icons.calendar_month,
-            color: Colors.white,
-            size: 35,
-          ),
+         
           Icon(
             Icons.star,
             color: Colors.white,
             size: 35,
           ),
-          Icon(
-            Icons.message_outlined,
-            color: Colors.white,
-            size: 35,
-          ),
+       
         ],
       ),
     );

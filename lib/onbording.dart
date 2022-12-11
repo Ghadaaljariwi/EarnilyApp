@@ -1,6 +1,6 @@
-import 'package:earnily/intro/page1.dart';
-import 'package:earnily/intro/page3.dart';
-import 'package:earnily/screen/signin_screen.dart';
+import 'package:earnilyapp/intro/page1.dart';
+import 'package:earnilyapp/intro/page3.dart';
+import 'package:earnilyapp/screen/signin_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

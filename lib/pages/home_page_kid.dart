@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:earnily/Rewards/kidrewards.dart';
-import 'package:earnily/addKids/adultsKidProfile.dart';
-import 'package:earnily/pages/KidTasks.dart';
-import 'package:earnily/reuasblewidgets.dart';
-import 'package:earnily/screen/signin_screen.dart';
+import 'package:earnilyapp/Rewards/kidrewards.dart';
+import 'package:earnilyapp/addKids/adultsKidProfile.dart';
+import 'package:earnilyapp/pages/KidTasks.dart';
+import 'package:earnilyapp/reuasblewidgets.dart';
+import 'package:earnilyapp/screen/signin_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -74,7 +74,6 @@ class _HomePageKidState extends State<HomePageKid> {
 
   final List<Widget> _pages = [
     kidTasks(),
-    // kidWish(),
     kidreward(),
   ];
   @override
@@ -206,11 +205,7 @@ class _HomePageKidState extends State<HomePageKid> {
             color: Colors.white,
             size: 35,
           ),
-          Icon(
-            Icons.message_outlined,
-            color: Colors.white,
-            size: 35,
-          ),
+       
         ],
       ), /*
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

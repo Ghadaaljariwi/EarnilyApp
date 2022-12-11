@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, sized_box_for_whitespace
-import 'package:earnily/pages/home_page_kid.dart';
+import 'package:earnilyapp/pages/home_page_kid.dart';
 
-import 'package:earnily/widgets/new_button.dart';
-import 'package:earnily/widgets/new_text.dart';
+import 'package:earnilyapp/widgets/new_button.dart';
+import 'package:earnilyapp/widgets/new_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../reuasblewidgets.dart';
@@ -80,9 +80,7 @@ class _kidSignInScreenState extends State<kidSignInScreen> {
                     20, MediaQuery.of(context).size.height * 0.01, 20, 0),
                 child: Column(
                   children: <Widget>[
-                    //     imgWidget("assets/images/mlogo.png", 200, 400),
                     imgWidget("assets/images/EarnilyLogo.png", 150, 250),
-                    //SizedBox(height: 30),
                     Text(
                       ' كطفل تسجيل الدخول',
                       style: TextStyle(
@@ -93,23 +91,23 @@ class _kidSignInScreenState extends State<kidSignInScreen> {
                     SizedBox(height: 30),
 
                     NewText(
-                        text: 'اسمك',
-                        size: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        textAlign: TextAlign.center),
-                    reuasbleTextField(
-                        "الاسم", Icons.email, false, _emailController),
-                    SizedBox(height: 20),
-
-                    NewText(
                         text: 'رمز التعريف',
                         size: 18,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         textAlign: TextAlign.center),
                     reuasbleTextField(
-                        'ادخل رمز التعريف', Icons.lock, true, _passController),
+                        "ادخل رمز التعريف", Icons.email, false, _emailController),
+                    SizedBox(height: 20),
+
+                    NewText(
+                        text: 'الرقم السري',
+                        size: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        textAlign: TextAlign.center),
+                    reuasbleTextField(
+                        'ادخل الرقم السري', Icons.lock, true, _passController),
                     SizedBox(
                       height: 10,
                     ),
@@ -126,7 +124,7 @@ class _kidSignInScreenState extends State<kidSignInScreen> {
                             await FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
                                     email: _emailController.text + '@gmail.com',
-                                    password: _passController.text.trim())
+                                    password: '12345678')
                                 .then((value) {
                               Navigator.push(
                                   context,
@@ -139,23 +137,8 @@ class _kidSignInScreenState extends State<kidSignInScreen> {
 
                     SizedBox(height: 20),
 
-                    /*
-
-                    SizedBox(height: 20),
-                    NewButton(
-                        text: 'انضم الى عائلتك kid',
-                        width: MediaQuery.of(context).size.width,
-                        height: 110,
-                        onClick: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const SignInKid();
-                              },
-                            ),
-                          );
-                        }),
-                        */
+                    
+                      
                   ],
                 ))),
       ),

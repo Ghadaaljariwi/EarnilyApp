@@ -1,7 +1,7 @@
 import 'dart:ui' as ui;
 
-import 'package:earnily/addKids/adultsKidProfile.dart';
-import 'package:earnily/reuasblewidgets.dart';
+import 'package:earnilyapp/addKids/adultsKidProfile.dart';
+import 'package:earnilyapp/reuasblewidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

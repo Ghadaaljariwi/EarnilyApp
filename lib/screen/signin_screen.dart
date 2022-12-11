@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, sized_box_for_whitespace
-import 'package:earnily/kidsignup/kidsignin.dart';
-import 'package:earnily/pages/home_page.dart';
-import 'package:earnily/screen/forgotpassword_screen.dart';
+import 'package:earnilyapp/kidsignup/kidsignin.dart';
+import 'package:earnilyapp/pages/home_page.dart';
+import 'package:earnilyapp/screen/forgotpassword_screen.dart';
 
-import 'package:earnily/screen/signup_screen.dart';
-import 'package:earnily/widgets/new_button.dart';
-import 'package:earnily/widgets/new_text.dart';
+import 'package:earnilyapp/screen/signup_screen.dart';
+import 'package:earnilyapp/widgets/new_button.dart';
+import 'package:earnilyapp/widgets/new_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
