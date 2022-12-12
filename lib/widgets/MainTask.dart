@@ -108,7 +108,7 @@ class _MainTaskState extends State<MainTask> {
         builder: (context) {
           // set up the buttons
           Widget cancelButton = TextButton(
-            child: const Text(
+            child: Text(
               "رفض",
               style: TextStyle(fontSize: 20, color: Colors.red),
             ),
@@ -118,7 +118,7 @@ class _MainTaskState extends State<MainTask> {
             },
           );
           Widget continueButton = TextButton(
-            child: const Text(
+            child: Text(
               "قبول",
               style: TextStyle(fontSize: 20, color: Colors.green),
             ),
@@ -129,7 +129,7 @@ class _MainTaskState extends State<MainTask> {
           );
 
           Widget backButton = TextButton(
-            child: const Text(
+            child: Text(
               "تراجع",
               style: TextStyle(
                 fontSize: 20,
@@ -138,12 +138,12 @@ class _MainTaskState extends State<MainTask> {
             onPressed: Navigator.of(context).pop,
           );
           return AlertDialog(
-            title: const Text(
+            title: Text(
               'قبول اتمام المهمة',
               textAlign: TextAlign.right,
               style: TextStyle(color: Colors.deepPurple, fontSize: 20),
             ),
-            content: const Text(
+            content: Text(
               'هل انت متاكد بقبول مهمة طفلك؟',
               textAlign: TextAlign.right,
               style: TextStyle(fontSize: 20),
@@ -163,7 +163,7 @@ class _MainTaskState extends State<MainTask> {
         builder: (context) {
           // set up the buttons
           Widget cancelButton = TextButton(
-            child: const Text(
+            child: Text(
               "حسنا",
               style: TextStyle(
                 fontSize: 20,
@@ -173,7 +173,7 @@ class _MainTaskState extends State<MainTask> {
           );
 
           return AlertDialog(
-            title: const Text(
+            title: Text(
               'طفلك لم يكمل المهمة بعد',
               textAlign: TextAlign.right,
               style: TextStyle(color: Colors.deepPurple, fontSize: 20),
@@ -191,14 +191,14 @@ class _MainTaskState extends State<MainTask> {
         builder: (context) {
           // set up the buttons
           Widget cancelButton = TextButton(
-            child: const Text(
+            child: Text(
               "لا",
               style: TextStyle(fontSize: 20, color: Colors.red),
             ),
             onPressed: Navigator.of(context).pop,
           );
           Widget continueButton = TextButton(
-            child: const Text(
+            child: Text(
               "نعم",
               style: TextStyle(fontSize: 20, color: Colors.green),
             ),
@@ -208,12 +208,12 @@ class _MainTaskState extends State<MainTask> {
           );
 
           return AlertDialog(
-            title: const Text(
+            title: Text(
               'حذف المهمة من طفلك',
               textAlign: TextAlign.right,
               style: TextStyle(color: Colors.deepPurple, fontSize: 20),
             ),
-            content: const Text(
+            content: Text(
               'هل انت متاكد بحذف مهمة طفلك؟',
               textAlign: TextAlign.right,
               style: TextStyle(fontSize: 20),
@@ -260,7 +260,7 @@ class _MainTaskState extends State<MainTask> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         elevation: 0,
-        title: const Center(
+        title: Center(
           child: Text(
             'انشطة اطفالي ',
             style: TextStyle(fontSize: 40),
@@ -271,15 +271,15 @@ class _MainTaskState extends State<MainTask> {
           child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-           DefaultTabController(
+                  Expanded(
+                    child: DefaultTabController(
                       length: 2,
                       initialIndex: 0,
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          const TabBar(
+                          TabBar(
                             labelColor: Colors.black,
                             labelStyle: TextStyle(
                               fontFamily: 'Poppins',
@@ -303,7 +303,7 @@ class _MainTaskState extends State<MainTask> {
                                       stream: _stream,
                                       builder: (context, snapshot) {
                                         if (!snapshot.hasData) {
-                                          return const Text(
+                                          return Text(
                                             "لا يوجد لديك مهام \n قم بالإضافة الآن",
                                             style: TextStyle(
                                                 fontSize: 30,
@@ -324,39 +324,39 @@ class _MainTaskState extends State<MainTask> {
                                               case "النظافة":
                                                 iconData = Icons.wash;
 
-                                                iconColor = const Color(0xffff6d6e);
+                                                iconColor = Color(0xffff6d6e);
                                                 break;
                                               case "الأكل":
                                                 iconData =
                                                     Icons.flatware_rounded;
-                                                iconColor = const Color(0xfff29732);
+                                                iconColor = Color(0xfff29732);
                                                 break;
 
                                               case "الدراسة":
                                                 iconData =
                                                     Icons.auto_stories_outlined;
-                                                iconColor = const Color(0xff6557ff);
+                                                iconColor = Color(0xff6557ff);
                                                 break;
 
                                               case "تطوير الشخصية":
                                                 iconData =
                                                     Icons.border_color_outlined;
-                                                iconColor = const Color(0xff2bc8d9);
+                                                iconColor = Color(0xff2bc8d9);
                                                 break;
 
                                               case "الدين":
                                                 iconData =
                                                     Icons.brightness_4_rounded;
-                                                iconColor = const Color(0xff234ebd);
+                                                iconColor = Color(0xff234ebd);
                                                 break;
                                               default:
                                                 iconData =
                                                     Icons.brightness_4_rounded;
-                                                iconColor = const Color(0xff6557ff);
+                                                iconColor = Color(0xff6557ff);
                                             }
                                             return Card(
                                                 elevation: 5,
-                                                margin: const EdgeInsets.symmetric(
+                                                margin: EdgeInsets.symmetric(
                                                   vertical: 8,
                                                   horizontal: 5,
                                                 ),
@@ -372,7 +372,7 @@ class _MainTaskState extends State<MainTask> {
                                                         radius: 30,
                                                         child: Padding(
                                                             padding:
-                                                                const EdgeInsets.all(
+                                                                EdgeInsets.all(
                                                                     6),
                                                             child: Container(
                                                               height: 33,
@@ -383,7 +383,7 @@ class _MainTaskState extends State<MainTask> {
                                                       ),
                                                       title: Text(
                                                         document['taskName'],
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontSize: 22,
@@ -391,7 +391,7 @@ class _MainTaskState extends State<MainTask> {
                                                       ),
                                                       subtitle: Text(
                                                         '${document['asignedKid']}\n${document['points']}🌟 | ${_colors(document['state'], document['asignedKid'])}',
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                             fontSize: 17),
                                                       ),
                                                       isThreeLine: true,
@@ -413,7 +413,7 @@ class _MainTaskState extends State<MainTask> {
                                                           spacing: 0,
                                                           children: <Widget>[
                                                             IconButton(
-                                                              icon: const Icon(
+                                                              icon: Icon(
                                                                   Icons.delete),
                                                               color: Theme.of(
                                                                       context)
@@ -433,7 +433,7 @@ class _MainTaskState extends State<MainTask> {
                                                                     'state'] ==
                                                                 'pending')
                                                               IconButton(
-                                                                icon: const Icon(Icons
+                                                                icon: Icon(Icons
                                                                     .check),
                                                                 color: Colors
                                                                     .black,
@@ -467,7 +467,7 @@ class _MainTaskState extends State<MainTask> {
                                       stream: _stream2,
                                       builder: (context, snapshot) {
                                         if (!snapshot.hasData) {
-                                          return const Text(
+                                          return Text(
                                             "لا يوجد لديك مهام \n قم بالإضافة الآن",
                                             style: TextStyle(
                                                 fontSize: 30,
@@ -488,39 +488,39 @@ class _MainTaskState extends State<MainTask> {
                                               case "النظافة":
                                                 iconData = Icons.wash;
 
-                                                iconColor = const Color(0xffff6d6e);
+                                                iconColor = Color(0xffff6d6e);
                                                 break;
                                               case "الأكل":
                                                 iconData =
                                                     Icons.flatware_rounded;
-                                                iconColor = const Color(0xfff29732);
+                                                iconColor = Color(0xfff29732);
                                                 break;
 
                                               case "الدراسة":
                                                 iconData =
                                                     Icons.auto_stories_outlined;
-                                                iconColor = const Color(0xff6557ff);
+                                                iconColor = Color(0xff6557ff);
                                                 break;
 
                                               case "تطوير الشخصية":
                                                 iconData =
                                                     Icons.border_color_outlined;
-                                                iconColor = const Color(0xff2bc8d9);
+                                                iconColor = Color(0xff2bc8d9);
                                                 break;
 
                                               case "الدين":
                                                 iconData =
                                                     Icons.brightness_4_rounded;
-                                                iconColor = const Color(0xff234ebd);
+                                                iconColor = Color(0xff234ebd);
                                                 break;
                                               default:
                                                 iconData =
                                                     Icons.brightness_4_rounded;
-                                                iconColor = const Color(0xff6557ff);
+                                                iconColor = Color(0xff6557ff);
                                             }
                                             return Card(
                                                 elevation: 5,
-                                                margin: const EdgeInsets.symmetric(
+                                                margin: EdgeInsets.symmetric(
                                                   vertical: 8,
                                                   horizontal: 5,
                                                 ),
@@ -536,7 +536,7 @@ class _MainTaskState extends State<MainTask> {
                                                         radius: 30,
                                                         child: Padding(
                                                             padding:
-                                                                const EdgeInsets.all(
+                                                                EdgeInsets.all(
                                                                     6),
                                                             child: Container(
                                                               height: 33,
@@ -547,7 +547,7 @@ class _MainTaskState extends State<MainTask> {
                                                       ),
                                                       title: Text(
                                                         document['taskName'],
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontSize: 22,
@@ -555,7 +555,7 @@ class _MainTaskState extends State<MainTask> {
                                                       ),
                                                       subtitle: Text(
                                                         '${document['asignedKid']}\n${document['points']}🌟 | ${_colors(document['state'], document['asignedKid'])}',
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                             fontSize: 17),
                                                       ),
                                                       isThreeLine: true,
@@ -577,7 +577,7 @@ class _MainTaskState extends State<MainTask> {
                                                           spacing: 0,
                                                           children: <Widget>[
                                                             IconButton(
-                                                              icon: const Icon(
+                                                              icon: Icon(
                                                                   Icons.delete),
                                                               color: Theme.of(
                                                                       context)
@@ -597,7 +597,7 @@ class _MainTaskState extends State<MainTask> {
                                                                     'state'] ==
                                                                 'pending')
                                                               IconButton(
-                                                                icon: const Icon(Icons
+                                                                icon: Icon(Icons
                                                                     .check),
                                                                 color: Colors
                                                                     .black,
@@ -632,14 +632,14 @@ class _MainTaskState extends State<MainTask> {
                         ],
                       ),
                     ),
-                 
+                  ),
                 ],
               ))),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
-        child: const Icon(
+        child: Icon(
           Icons.add,
           size: 30,
         ),
