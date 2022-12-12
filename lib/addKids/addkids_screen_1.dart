@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, library_private_types_in_public_api
+// ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_const_constructors, no_leading_underscores_for_local_identifiers
 
 import 'package:earnilyapp/reuasblewidgets.dart';
 import 'package:earnilyapp/screen/profile_screen.dart';
@@ -9,6 +9,7 @@ import 'dart:ui' as ui;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:earnilyapp/models/kid.dart';
 
 class AddKids_screen_1 extends StatefulWidget {
   const AddKids_screen_1({Key? key}) : super(key: key);
@@ -136,7 +137,7 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
         .collection('users')
         .doc(user.uid)
         .collection('kids')
-        .doc( u.substring(0, 8) + '@gmail.com')
+        .doc(u.substring(0, 8) + '@gmail.com')
         .set({
       'name': nameController.text,
       'gender': value,
@@ -149,7 +150,7 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
 
     await FirebaseFirestore.instance
         .collection('kids')
-        .doc( u.substring(0, 8) + '@gmail.com')
+        .doc(u.substring(0, 8) + '@gmail.com')
         .set({
       'name': nameController.text,
       'gender': value,
@@ -186,7 +187,7 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
     return false;
   }
 
-  Future<List<String>> lstKids() async {
+  Future<List<kid>> lstKids() async {
     final user = FirebaseAuth.instance.currentUser!;
 
     QuerySnapshot snapshot = await FirebaseFirestore.instance
@@ -196,14 +197,16 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
         .where(name)
         .get();
 
-    List<String> _kidsNamesList = [];
+    List<kid> _kidsNamesList = [];
 
     for (var i = 0; i < snapshot.docs.length; i++) {
       Map<String, dynamic> document =
           snapshot.docs[i].data() as Map<String, dynamic>;
 
       String name = document['name'];
-      _kidsNamesList.add(name);
+String pass = document['pass'];
+      kid kididentifier = kid(name:name, email:pass);
+      _kidsNamesList.add(kididentifier);
     }
 
     return _kidsNamesList;

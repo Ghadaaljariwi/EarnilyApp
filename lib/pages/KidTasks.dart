@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures, prefer_const_constructors, unnecessary_new
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -17,7 +19,7 @@ class _kidTasksState extends State<kidTasks> {
 
   final user = FirebaseAuth.instance.currentUser!;
   List _selecteCategorysID = [];
-  String? mtoken = " ";
+
   @override
   void initState() {
     super.initState();
@@ -38,35 +40,7 @@ class _kidTasksState extends State<kidTasks> {
       return "assets/images/boy24.png";
   }
 
-  void _showDialog() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              "حقول الادخال مفقودة",
-              textAlign: TextAlign.right,
-              style: TextStyle(color: Colors.deepPurple, fontSize: 20),
-            ),
-            content: Text(
-              " تأكد من ادخال جميع البيانات من فضلك",
-              textAlign: TextAlign.right,
-              style: TextStyle(fontSize: 20),
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: Navigator.of(context).pop,
-                child: const Text(
-                  "حسناً",
-                  style: TextStyle(fontSize: 20),
-                ),
-              )
-            ],
-          );
-        });
-  }
-
-  void showToastMessage(String message) {
+   void showToastMessage(String message) {
     Fluttertoast.showToast(
         msg: message, //message to show toast
         toastLength: Toast.LENGTH_LONG, //duration for message to show

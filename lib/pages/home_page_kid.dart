@@ -107,7 +107,7 @@ class _HomePageKidState extends State<HomePageKid> {
                 children: [
                   imgWidget("assets/images/EarnilyLogo.png", 100, 250),
                   Text(
-                    user.email!.substring(0, user.email!.indexOf('@')),
+                    'اعدادات',
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w600,
@@ -149,7 +149,7 @@ class _HomePageKidState extends State<HomePageKid> {
                       color: Colors.white,
                     ),
                   ),
-                  ListTile(),
+                  
                   ListTile(
                     title: Text(
                       textAlign: TextAlign.right,

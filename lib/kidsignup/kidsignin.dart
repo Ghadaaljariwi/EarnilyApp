@@ -96,19 +96,12 @@ class _kidSignInScreenState extends State<kidSignInScreen> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         textAlign: TextAlign.center),
+                         SizedBox(height: 15),
                     reuasbleTextField(
                         "ادخل رمز التعريف", Icons.email, false, _emailController),
                     SizedBox(height: 20),
 
-                    NewText(
-                        text: 'الرقم السري',
-                        size: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        textAlign: TextAlign.center),
-                    reuasbleTextField(
-                        'ادخل الرقم السري', Icons.lock, true, _passController),
-                    SizedBox(
+                      SizedBox(
                       height: 10,
                     ),
 
@@ -117,8 +110,7 @@ class _kidSignInScreenState extends State<kidSignInScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 110,
                         onClick: () async {
-                          if (_emailController.text.isEmpty ||
-                              _passController.text.isEmpty) {
+                          if (_emailController.text.isEmpty ) {
                             _showDialog();
                           } else
                             await FirebaseAuth.instance
