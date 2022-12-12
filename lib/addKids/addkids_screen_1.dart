@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_const_constructors, no_leading_underscores_for_local_identifiers
+// ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_const_constructors, no_leading_underscores_for_local_identifiers, prefer_interpolation_to_compose_strings
 
 import 'package:earnilyapp/reuasblewidgets.dart';
 import 'package:earnilyapp/screen/profile_screen.dart';
@@ -32,7 +32,7 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
   final List<String> items = <String>["طفل", "طفلة"];
 
   //final _nameController = TextEditingController();
-  List<String> names = [];
+  List<kid> names = [];
   int count = 0;
 
   void _showDialog(String text) {
@@ -178,9 +178,9 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
         });
       });
 
-  bool myLoop(List<String> list) {
+  bool myLoop(List<kid> list) {
     for (var i = 0; i < list.length; i++) {
-      if (nameController.text == list[i]) {
+      if (nameController.text == list[i].name) {
         return true;
       }
     }

@@ -1,5 +1,6 @@
-// ignore_for_file: camel_case_types, library_private_types_in_public_api
+// ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_const_constructors
 
+import 'package:earnilyapp/models/kid.dart';
 import 'package:earnilyapp/screen/profile_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -25,7 +26,6 @@ class _Add_taskState extends State<Add_task> {
 
   void initState() {
     super.initState();
-
   }
 
   final user = FirebaseAuth.instance.currentUser!;
@@ -133,7 +133,65 @@ class _Add_taskState extends State<Add_task> {
     }
   }
 
+  Future<String> getEmail(String childName) async {
+    final user = FirebaseAuth.instance.currentUser!;
+
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('kids')
+        .where(name)
+        .get();
+
+    List<kid> _kidsNamesList = [];
+
+    for (var i = 0; i < snapshot.docs.length; i++) {
+      Map<String, dynamic> document =
+          snapshot.docs[i].data() as Map<String, dynamic>;
+
+      String name = document['name'];
+      String pass = document['pass'];
+      kid kididentifier = kid(name: name, email: pass);
+      _kidsNamesList.add(kididentifier);
+    }
+
+    for (var i = 0; i < _kidsNamesList.length; i++) {
+      if (childName == _kidsNamesList[i].name) {
+        return _kidsNamesList[i].email;
+      }
+      return 'e388e604';
+    }
+    return 'e388e604';
+  }
+
   Future addTask() async {
+    final user = FirebaseAuth.instance.currentUser!;
+
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('kids')
+        .where(name)
+        .get();
+
+    List<kid> _kidsNamesList = [];
+
+    for (var i = 0; i < snapshot.docs.length; i++) {
+      Map<String, dynamic> document =
+          snapshot.docs[i].data() as Map<String, dynamic>;
+
+      String name = document['name'];
+      String pass = document['pass'];
+      kid kididentifier = kid(name: name, email: pass);
+      _kidsNamesList.add(kididentifier);
+    }
+
+    for (var i = 0; i < _kidsNamesList.length; i++) {
+      if (childName == _kidsNamesList[i].name) {
+        email = _kidsNamesList[i].email;
+      }
+    }
+
     const tuid = Uuid();
     String tid = tuid.v4();
     await FirebaseFirestore.instance
@@ -154,7 +212,7 @@ class _Add_taskState extends State<Add_task> {
 
     await FirebaseFirestore.instance
         .collection('kids')
-        .doc(childName + '@gmail.com')
+        .doc(email + '@gmail.com')
         .collection('Task')
         .doc(tid)
         .set({
@@ -235,288 +293,286 @@ class _Add_taskState extends State<Add_task> {
       ),
       body: Form(
         key: formKey,
-        child: Container(
-          child: SingleChildScrollView(
-              child: Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 25),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          ":اسم النشاط ",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
+        child: SingleChildScrollView(
+            child: Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 25),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        ":اسم النشاط ",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
-                        height: 10,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.topRight,
+                      height: 50,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextFormField(
+                        controller: _nameController,
+
+                        textAlign: TextAlign.right,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: ' اسم النشاط الجديد',
+                            hintTextDirection: ui.TextDirection.rtl,
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 17,
+                            ),
+                            contentPadding: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                            )),
+                        validator: (val) =>
+                            val!.isEmpty ? 'اختر اسم النشاط' : null,
+                        //onChanged: (val) => setState(() => _currentName = val),
                       ),
-                      Container(
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        ":اختر الطفل المخصص للنشاط",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
                         alignment: Alignment.topRight,
                         height: 50,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             color: Colors.grey[100],
                             borderRadius: BorderRadius.circular(15)),
-                        child: TextFormField(
-                          controller: _nameController,
+                        child: FutureBuilder(
+                          future: lstKids(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              print(snapshot.data);
 
-                          textAlign: TextAlign.right,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: ' اسم النشاط الجديد',
-                              hintTextDirection: ui.TextDirection.rtl,
-                              hintStyle: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 17,
-                              ),
-                              contentPadding: EdgeInsets.only(
-                                left: 20,
-                                right: 20,
-                              )),
-                          validator: (val) =>
-                              val!.isEmpty ? 'اختر اسم النشاط' : null,
-                          //onChanged: (val) => setState(() => _currentName = val),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          ":اختر الطفل المخصص للنشاط",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                          alignment: Alignment.topRight,
-                          height: 50,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              color: Colors.grey[100],
-                              borderRadius: BorderRadius.circular(15)),
-                          child: FutureBuilder(
-                            future: lstKids(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                print(snapshot.data);
-
-                                return DropdownButtonFormField<String>(
-                                    hint: childName.isEmpty
-                                        ? Text("اختر الطفل")
-                                        : Text(childName),
-                                    isExpanded: true,
-                                    alignment: Alignment.centerRight,
-                                    // validator: (val) {
-                                    //   if (val == null) return "اختر الطفل";
-                                    //   return null;
-                                    // },
-                                    items: snapshot.data?.map((valueItem) {
-                                      return DropdownMenuItem(
-                                        alignment: Alignment.centerRight,
-                                        value: valueItem,
-                                        child: Text(valueItem),
-                                      );
-                                    }).toList(),
-                                    onChanged: (newVal) {
-                                      setState(() {
-                                        childName = newVal!;
-                                      });
+                              return DropdownButtonFormField<String>(
+                                  hint: childName.isEmpty
+                                      ? Text("اختر الطفل")
+                                      : Text(childName),
+                                  isExpanded: true,
+                                  alignment: Alignment.centerRight,
+                                  // validator: (val) {
+                                  //   if (val == null) return "اختر الطفل";
+                                  //   return null;
+                                  // },
+                                  items: snapshot.data?.map((valueItem) {
+                                    return DropdownMenuItem(
+                                      alignment: Alignment.centerRight,
+                                      value: valueItem,
+                                      child: Text(valueItem),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newVal) {
+                                    setState(() {
+                                      childName = newVal!;
                                     });
-                              } else {
-                                return SizedBox(
-                                  height: 10,
-                                );
-                              }
-                            },
-                          )),
-                      SizedBox(
-                        height: 10,
+                                  });
+                            } else {
+                              return SizedBox(
+                                height: 10,
+                              );
+                            }
+                          },
+                        )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        ":عدد النقاط المستحقة",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          ":عدد النقاط المستحقة",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Wrap(
+                        alignment: WrapAlignment.center,
+                        runSpacing: 10,
+                        children: [
+                          pointsSelect("100", 0xffff6d6e),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          pointsSelect('75', 0xfff29732),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          pointsSelect('50', 0xff6557ff),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          pointsSelect('25', 0xff2bc8d9),
+                        ]
+                        /* children: [
+                          pointsSelect("١٠٠", 0xffff6d6e),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          pointsSelect('٧٥', 0xfff29732),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          pointsSelect('٥٠', 0xff6557ff),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          pointsSelect('٢٥', 0xff2bc8d9),
+                        ] */
+                        ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        ":تاريخ التنفيذ",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(
+                      //width: 300,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: _presentDatePicker,
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(18),
+                          backgroundColor: Colors.grey[100],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: new Directionality(
+                          textDirection: ui.TextDirection.rtl,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                _selectedDate == ""
+                                    ? 'لم يتم اختيار تاريخ'
+                                    : 'التاريخ المختار: ${_selectedDate}',
+                                overflow: TextOverflow.visible,
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              Icon(
+                                Icons.calendar_today,
+                                size: 30,
+                                color: Colors.black,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        ":نوع النشاط",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
                       ),
-                      Wrap(
-                          alignment: WrapAlignment.center,
-                          runSpacing: 10,
-                          children: [
-                            pointsSelect("100", 0xffff6d6e),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            pointsSelect('75', 0xfff29732),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            pointsSelect('50', 0xff6557ff),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            pointsSelect('25', 0xff2bc8d9),
-                          ]
-                          /* children: [
-                            pointsSelect("١٠٠", 0xffff6d6e),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            pointsSelect('٧٥', 0xfff29732),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            pointsSelect('٥٠', 0xff6557ff),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            pointsSelect('٢٥', 0xff2bc8d9),
-                          ] */
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Wrap(
+                        alignment: WrapAlignment.center,
+                        runSpacing: 10,
+                        children: [
+                          categorySelect("النظافة", 0xffff6d6e),
+                          SizedBox(
+                            width: 20,
                           ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          ":تاريخ التنفيذ",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(
-                        //width: 300,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: _presentDatePicker,
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(18),
-                            backgroundColor: Colors.grey[100],
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
+                          categorySelect('الأكل', 0xfff29732),
+                          SizedBox(
+                            width: 20,
                           ),
-                          child: new Directionality(
-                            textDirection: ui.TextDirection.rtl,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  _selectedDate == ""
-                                      ? 'لم يتم اختيار تاريخ'
-                                      : 'التاريخ المختار: ${_selectedDate}',
+                          categorySelect('الدراسة', 0xff6557ff),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          categorySelect('الدين', 0xff234ebd),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          categorySelect('تطوير الشخصية', 0xff2bc8d9),
+                        ]),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Positioned(
+                        left: 21,
+                        top: 625,
+                        width: 350,
+                        height: 66,
+                        child: SizedBox(
+                            width: 347,
+                            height: 68,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                backgroundColor: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  side: const BorderSide(
+                                    width: 0,
+                                    color: Colors.transparent,
+                                  ),
+                                ),
+                              ),
+                              onPressed: _validate,
+                              child: const Text('إضافة ',
                                   overflow: TextOverflow.visible,
-                                  textAlign: TextAlign.left,
-                                  style: const TextStyle(
-                                    fontSize: 15,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 36,
                                     fontWeight: FontWeight.w400,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.calendar_today,
-                                  size: 30,
-                                  color: Colors.black,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          ":نوع النشاط",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Wrap(
-                          alignment: WrapAlignment.center,
-                          runSpacing: 10,
-                          children: [
-                            categorySelect("النظافة", 0xffff6d6e),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            categorySelect('الأكل', 0xfff29732),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            categorySelect('الدراسة', 0xff6557ff),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            categorySelect('الدين', 0xff234ebd),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            categorySelect('تطوير الشخصية', 0xff2bc8d9),
-                          ]),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Positioned(
-                          left: 21,
-                          top: 625,
-                          width: 350,
-                          height: 66,
-                          child: SizedBox(
-                              width: 347,
-                              height: 68,
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  backgroundColor: Colors.black,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    side: const BorderSide(
-                                      width: 0,
-                                      color: Colors.transparent,
-                                    ),
-                                  ),
-                                ),
-                                onPressed: _validate,
-                                child: const Text('إضافة ',
-                                    overflow: TextOverflow.visible,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 36,
-                                      fontWeight: FontWeight.w400,
-                                    )),
-                              ))),
-                    ],
-                  ))),
-        ),
+                                  )),
+                            ))),
+                  ],
+                ))),
       ),
     );
   }
