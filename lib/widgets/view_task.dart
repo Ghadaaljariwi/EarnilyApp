@@ -120,23 +120,7 @@ class _View_taskState extends State<View_task> {
     }
   }
 
-  Future updateTaskOld() async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .collection('Task')
-        .doc(widget.id)
-        .update({
-      'taskName': _nameController.text,
-      'points': points,
-      'date': _selectedDate,
-      'category': categoty,
-      'asignedKid': childName,
-      'state': 'Not c',
-    });
- 
-   
-  }
+  
 
   void _presentDatePicker() {
     showDatePicker(
@@ -532,7 +516,7 @@ class _View_taskState extends State<View_task> {
                               text: 'حفظ التغييرات',
                               onClick: () => {
                                     _updateTask(widget.id, user.uid,
-                                        widget.document['asignedKid'])
+                                        widget.document['kidpass'])
                                   }),
                         if (edit == true)
                           NewButton(

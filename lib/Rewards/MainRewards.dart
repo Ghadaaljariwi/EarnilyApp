@@ -39,7 +39,7 @@ class _MainRewardsState extends State<MainRewards> {
     if (gender == "طفلة")
       return "assets/images/girlIcon.png";
     else
-      return "assets/images/boy24.png";
+      return "assets/images/boyIcon.png";
   }
 
   List<Color> myColors = [
@@ -132,52 +132,83 @@ void _showRewardSelected()  {
                       style: TextStyle(fontSize: 30, color: Colors.grey),
                     ),
                   )
-                : Container(
-                    child: GridView.builder(
-                      itemBuilder: (ctx, index) {
-                      Map<String, dynamic> document =
-                                                snapshot.data!.docs[index]
-                                                        .data()
-                                                    as Map<String, dynamic>;
-                        return Card(
-                            elevation: 5,
-                            margin: EdgeInsets.symmetric(
-                                //vertical: 6,
-                                //horizontal: 8,
-                                ),
-                            child: Container(
-                              height: 150,
-                              color: chooseColor(
-                                  index), //Colors.primaries[Random().nextInt(myColors.length)],
-      
-                              child: new Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: new GridTile(
-                                  child: Column(
-                                    children: [
-                                      SizedBox(height: 10),
-                                      Icon(
-                                        Icons.card_giftcard,
-                                        color: Colors.black,
-                                        size: 50,
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        document['rewardName'],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30,
+                :Padding(
+                                                                   padding:     const EdgeInsets.all(20.0),
+
+                      child: GridView.builder(
+                         gridDelegate:
+                                                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                          maxCrossAxisExtent:
+                                                              200
+                                                              ,
+                                                          childAspectRatio:
+                                                              29 / 30,
+                                                          crossAxisSpacing: 20,
+                                                          mainAxisSpacing: 20),
+                                                  
+                        
+                        itemBuilder: (ctx, index) {
+                          Map<String, dynamic> document =
+                              snapshot.data!.docs[index].data()
+                                  as Map<String, dynamic>;
+                          return Container(
+                             alignment:
+                                                          Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                          color: chooseColor(index),
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color:
+                                                                  Colors.black,
+                                                              offset:
+                                                                  const Offset(
+                                                                0,
+                                                                0.5,
+                                                              ),
+                                                              blurRadius: 5,
+                                                              spreadRadius:
+                                                                  0.05,
+                                                            ), //BoxShadow
+                                                            //BoxShadow
+                                                          ],
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      15)),
+                                       
+                              child: Container(
+                                height: 200,
+                                color: chooseColor(
+                                    index), //Colors.primaries[Random().nextInt(myColors.length)],
+
+                                child: new Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: new GridTile(
+                                    child: Column(
+                                      children: [
+                                        SizedBox(height: 10),
+                                        Icon(
+                                          Icons.card_giftcard,
+                                          color: Colors.black,
+                                          size: 20,
                                         ),
-                                      ),
-                                      SizedBox(height: 15),
-                                      Text(
-                                        document['points'] + '🌟',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30,
+                                        SizedBox(height: 10),
+                                        Text(
+                                          document['rewardName'],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          ),
                                         ),
-                                      ),
-                                      if (document['state'] =='selected')
+                                        SizedBox(height: 10),
+                                        Text(
+                                          document['points'] + '🌟',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                              if (document['state'] =='selected')
                                     IconButton(
                                       icon: Icon(Icons.check),
                                       color: Colors.black,
@@ -185,21 +216,17 @@ void _showRewardSelected()  {
                                         _showRewardSelected()
 
                                             },
-                                      )
-                                    ],
+                                      ),
+                                        ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ));
-                      },
-                      itemCount: snapshot.data!.docs.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 8,
-                          crossAxisSpacing: 8),
-                    ),
-                  ),
-          );
+                              ));
+                        },
+                        itemCount: snapshot.data!.docs.length,
+           
+                      ),
+                    ),   );
         }
       ),
       floatingActionButtonLocation:

@@ -1,9 +1,12 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:age_calculator/age_calculator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:ui' as ui;
+
 class kidreward extends StatefulWidget {
   const kidreward({super.key});
 
@@ -13,7 +16,9 @@ class kidreward extends StatefulWidget {
 
 String adultID = '';
 int points = 0;
+int points2 = 0;
 String kidName = '';
+String pass = '';
 
 //String rid='';
 class _kidrewardState extends State<kidreward> {
@@ -23,6 +28,7 @@ class _kidrewardState extends State<kidreward> {
     // TODO: implement initState
     super.initState();
     _getUserDetail();
+    _getUserDetail2();
   }
 
   int getBirthday(Timestamp date) {
@@ -34,7 +40,7 @@ class _kidrewardState extends State<kidreward> {
     if (gender == "طفلة")
       return "assets/images/girlIcon.png";
     else
-      return "assets/images/boy24.png";
+      return "assets/images/boyIcon.png";
   }
 
   List<Color> myColors = [
@@ -61,7 +67,7 @@ class _kidrewardState extends State<kidreward> {
     return myColors[index];
   }
 
- /*  Future<void> deleteReward(String rid) async {
+  /*  Future<void> deleteReward(String rid) async {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(adultID)
@@ -70,8 +76,7 @@ class _kidrewardState extends State<kidreward> {
         .delete();
   } */
 
-  void _showDialog2(String point, String rid) async {
-    print(point);
+  Future _showDialog2(String point, String rid) async {
     print(points);
     print(rid);
     int rewardPoint = int.parse(point);
@@ -107,26 +112,34 @@ class _kidrewardState extends State<kidreward> {
             );
           });
     } else {
-      showToastMessage('لقد حصلت على المكافاة');
-      await FirebaseFirestore.instance
-          .collection('kids')
-          .doc(kidName + '@gmail.com')
-          .update({'points': kidPoint - rewardPoint});
-
+      print('heree');
+      print(kidPoint);
+      print(adultID);
+print(pass);
+      kidPoint = kidPoint - rewardPoint;
       await FirebaseFirestore.instance
           .collection('users')
           .doc(adultID)
           .collection('kids')
-          .doc(kidName + '@gmail.com')
-          .update({'points': kidPoint - rewardPoint});
+          .doc(pass + '@gmail.com')
+          .update({'points': kidPoint});
+
+      showToastMessage('لقد حصلت على المكافاة');
+
+      print(kidPoint);
+      await FirebaseFirestore.instance
+          .collection('kids')
+          .doc(pass + '@gmail.com')
+          .update({'points': kidPoint});
+
       //deleteReward(rid);
 
       await FirebaseFirestore.instance
-         .collection('users')
-         .doc(adultID)
-         .collection('reward')
-         .doc(rid)
-         .update({'state':'selected'});
+          .collection('users')
+          .doc(adultID)
+          .collection('reward')
+          .doc(rid)
+          .update({'state': 'selected'});
     }
   }
 
@@ -175,20 +188,52 @@ class _kidrewardState extends State<kidreward> {
                         style: TextStyle(fontSize: 30, color: Colors.grey),
                       ),
                     )
-                  : Container(
+                  : Padding(
+                                                                   padding:     const EdgeInsets.all(20.0),
+
                       child: GridView.builder(
+                         gridDelegate:
+                                                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                          maxCrossAxisExtent:
+                                                              200
+                                                              ,
+                                                          childAspectRatio:
+                                                              29 / 30,
+                                                          crossAxisSpacing: 20,
+                                                          mainAxisSpacing: 20),
+                                                  
+                        
                         itemBuilder: (ctx, index) {
                           Map<String, dynamic> document =
                               snapshot.data!.docs[index].data()
                                   as Map<String, dynamic>;
-                          return Card(
-                              elevation: 5,
-                              margin: EdgeInsets.symmetric(
-                                  //vertical: 6,
-                                  //horizontal: 8,
-                                  ),
+                          return Container(
+                             alignment:
+                                                          Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                          color: chooseColor(index),
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color:
+                                                                  Colors.black,
+                                                              offset:
+                                                                  const Offset(
+                                                                0,
+                                                                0.5,
+                                                              ),
+                                                              blurRadius: 5,
+                                                              spreadRadius:
+                                                                  0.05,
+                                                            ), //BoxShadow
+                                                            //BoxShadow
+                                                          ],
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      15)),
+                                       
                               child: Container(
-                                height: 150,
+                                height: 200,
                                 color: chooseColor(
                                     index), //Colors.primaries[Random().nextInt(myColors.length)],
 
@@ -248,10 +293,7 @@ class _kidrewardState extends State<kidreward> {
                               ));
                         },
                         itemCount: snapshot.data!.docs.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 8,
-                            crossAxisSpacing: 8),
+           
                       ),
                     ),
             );
@@ -291,9 +333,25 @@ class _kidrewardState extends State<kidreward> {
         .snapshots()
         .listen((DocumentSnapshot snapshot) {
       kidName = snapshot.get('name');
+      pass = snapshot.get('pass');
       adultID = snapshot.get("uid");
-      points = snapshot.get("points");
+      points2 = snapshot.get("points");
       //rid = snapshot.get("rid");
+      setState(() {});
+    });
+  }
+
+  _getUserDetail2() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(adultID)
+        .collection('kids')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .snapshots()
+        .listen((DocumentSnapshot snapshot) {
+      points = snapshot.get("points");
+      pass = snapshot.get('pass');
+
       setState(() {});
     });
   }

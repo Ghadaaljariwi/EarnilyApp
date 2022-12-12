@@ -16,7 +16,7 @@ class add_Reward extends StatefulWidget {
 
 class _addRewardState extends State<add_Reward> {
   @override
-  late List<String> _savedPoint = ['1000','750','500','250'];
+  late List<String> _savedPoint = ['1000','250','100','25'];
 
   final user = FirebaseAuth.instance.currentUser!;
 

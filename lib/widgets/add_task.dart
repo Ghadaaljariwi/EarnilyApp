@@ -208,6 +208,7 @@ class _Add_taskState extends State<Add_task> {
       'state': 'Not complete',
       'tid': tid,
       'adult': user.uid,
+      'kidpass':email,
     });
 
     await FirebaseFirestore.instance
@@ -224,6 +225,7 @@ class _Add_taskState extends State<Add_task> {
       'state': 'Not complete',
       'tid': tid,
       'adult': user.uid,
+      'kidpass':email,
     });
   }
 

@@ -12,7 +12,10 @@ class kidTasks extends StatefulWidget {
   State<kidTasks> createState() => _kidTasksState();
 }
 
+String adultID = '';
 int points = 0;
+int points2 = 0;
+String kidName = '';
 
 class _kidTasksState extends State<kidTasks> {
   //notification
@@ -24,23 +27,19 @@ class _kidTasksState extends State<kidTasks> {
   void initState() {
     super.initState();
     _getUserDetail();
-  
+    _getUserDetail2();
 
     // getToken();
   }
-
- 
-
-  
 
   String set(String gender) {
     if (gender == "طفلة")
       return "assets/images/girlIcon.png";
     else
-      return "assets/images/boy24.png";
+      return "assets/images/boyIcon.png";
   }
 
-   void showToastMessage(String message) {
+  void showToastMessage(String message) {
     Fluttertoast.showToast(
         msg: message, //message to show toast
         toastLength: Toast.LENGTH_LONG, //duration for message to show
@@ -65,7 +64,6 @@ class _kidTasksState extends State<kidTasks> {
       });
     }
   }
-
 
   List<Color> myColors = [
     //ghada
@@ -139,7 +137,7 @@ class _kidTasksState extends State<kidTasks> {
           ),
         ),
       ),
-      body:  SafeArea(
+      body: SafeArea(
           child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
               child: Column(
@@ -171,276 +169,368 @@ class _kidTasksState extends State<kidTasks> {
                             child: TabBarView(
                               children: [
                                 StreamBuilder(
-                                  stream: _stream,
-                                  builder: (context, snapshot) {
-                                    return 
-                                    Center(
-                                      child: !snapshot.hasData
-                                          ? Center(
-                                              child: Text(
-                                                'لايوجد مهام',
-                                                style: TextStyle(
-                                                    fontSize: 30,
-                                                    color: Colors.grey),
-                                              ),
-                                            )
-                                          : Container(
-                                              child: GridView.builder(
-                                                 itemBuilder: (ctx, index) {
-                                                    Map<String, dynamic> document =
-                              snapshot.data!.docs[index].data()
-                                  as Map<String, dynamic>;
+                                    stream: _stream,
+                                    builder: (context, snapshot) {
+                                      return Center(
+                                        child: !snapshot.hasData
+                                            ? Center(
+                                                child: Text(
+                                                  'لايوجد مهام',
+                                                  style: TextStyle(
+                                                      fontSize: 30,
+                                                      color: Colors.grey),
+                                                ),
+                                              )
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(20.0),
+                                                child: GridView.builder(
+                                                  gridDelegate:
+                                                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                          maxCrossAxisExtent:
+                                                              200,
+                                                          childAspectRatio:
+                                                              29 / 30,
+                                                          crossAxisSpacing: 20,
+                                                          mainAxisSpacing: 20),
+                                                  itemBuilder: (ctx, index) {
+                                                    Map<String, dynamic>
+                                                        document = snapshot
+                                                                .data!
+                                                                .docs[index]
+                                                                .data()
+                                                            as Map<String,
+                                                                dynamic>;
 
-                                                  String iconData = '';
-                                                  Color iconColor;
-                                                  switch (document['category']) {
-                                                    case "النظافة":
-                                                      // iconData = Icons.wash;
-                                                      iconData = '🫧';
-                                
-                                                      iconColor = Color(0xffff6d6e);
-                                                      break;
-                                                    case "الأكل":
-                                                      // iconData = Icons.flatware_rounded;
-                                                      iconData = '🍽';
-                                                      iconColor = Color(0xfff29732);
-                                                      break;
-                                
-                                                    case "الدراسة":
-                                                      // iconData = Icons.auto_stories_outlined;
-                                                      iconData = '📚';
-                                                      iconColor = Color(0xff6557ff);
-                                                      break;
-                                
-                                                    case "تطوير الشخصية":
-                                                      //  iconData = Icons.border_color_outlined;
-                                                      iconData = '📖';
-                                                      iconColor = Color(0xff2bc8d9);
-                                                      break;
-                                
-                                                    case "الدين":
-                                                      //  iconData = Icons.brightness_4_rounded;
-                                                      iconData = '🕌';
-                                                      iconColor = Color(0xff234ebd);
-                                                      break;
-                                                    default:
-                                                      // iconData = Icons.brightness_4_rounded;
-                                                      iconColor = Color(0xff6557ff);
-                                                  }
-                                                  return Card(
-                                                      elevation: 5,
-                                                      margin: EdgeInsets.symmetric(
-                                                        vertical: 10,
-                                                        horizontal: 10,
-                                                      ),
-                                                      child: Container(
-                                                        height: 150,
-                                                        color:
-                                                            iconColor, //Colors.primaries[Random().nextInt(myColors.length)],
-                                
-                                                        child: new Directionality(
-                                                          textDirection:
-                                                              TextDirection.rtl,
-                                                          child: new GridTile(
-                                                            child: Column(
-                                                              children: [
-                                                                SizedBox(
-                                                                    height: 35),
-                                                                Text(
-                                                                  iconData +
-                                                                    document['taskName'],
-                                                                  style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize: 25,
+                                                    String iconData = '';
+                                                    Color iconColor;
+                                                    switch (
+                                                        document['category']) {
+                                                      case "النظافة":
+                                                        // iconData = Icons.wash;
+                                                        iconData = '🫧';
+
+                                                        iconColor =
+                                                            Color(0xffff6d6e);
+                                                        break;
+                                                      case "الأكل":
+                                                        // iconData = Icons.flatware_rounded;
+                                                        iconData = '🍽';
+                                                        iconColor =
+                                                            Color(0xfff29732);
+                                                        break;
+
+                                                      case "الدراسة":
+                                                        // iconData = Icons.auto_stories_outlined;
+                                                        iconData = '📚';
+                                                        iconColor =
+                                                            Color(0xff6557ff);
+                                                        break;
+
+                                                      case "تطوير الشخصية":
+                                                        //  iconData = Icons.border_color_outlined;
+                                                        iconData = '📖';
+                                                        iconColor =
+                                                            Color(0xff2bc8d9);
+                                                        break;
+
+                                                      case "الدين":
+                                                        //  iconData = Icons.brightness_4_rounded;
+                                                        iconData = '🕌';
+                                                        iconColor =
+                                                            Color(0xff234ebd);
+                                                        break;
+                                                      default:
+                                                        // iconData = Icons.brightness_4_rounded;
+                                                        iconColor =
+                                                            Color(0xff6557ff);
+                                                    }
+                                                    return Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                          color: iconColor,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color:
+                                                                  Colors.black,
+                                                              offset:
+                                                                  const Offset(
+                                                                0,
+                                                                0.5,
+                                                              ),
+                                                              blurRadius: 5,
+                                                              spreadRadius:
+                                                                  0.05,
+                                                            ), //BoxShadow
+                                                            //BoxShadow
+                                                          ],
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      15)),
+                                                      //Colors.primaries[Random().nextInt(myColors.length)],
+
+                                                      child: new Directionality(
+                                                        textDirection:
+                                                            TextDirection.rtl,
+                                                        child: new GridTile(
+                                                          child: Column(
+                                                            children: [
+                                                              SizedBox(
+                                                                  height: 35),
+                                                              Text(
+                                                                iconData +
+                                                                    document[
+                                                                        'taskName'],
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 25,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                '🕐' +
+                                                                    document[
+                                                                        'date'],
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 20,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                '🌟' +
+                                                                    document[
+                                                                        'points'],
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 25,
+                                                                ),
+                                                              ),
+                                                              if (document[
+                                                                      'state'] ==
+                                                                  "Not complete")
+                                                                Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              0),
+                                                                  child:
+                                                                      CheckboxListTile(
+                                                                    selected:
+                                                                        false,
+                                                                    value: _selecteCategorysID
+                                                                        .contains(
+                                                                            document['tid']),
+                                                                    onChanged:
+                                                                        (selected) {
+                                                                      print(document[
+                                                                          'state']);
+                                                                      print(
+                                                                          document);
+                                                                      updateTask(
+                                                                          document[
+                                                                              'tid'],
+                                                                          document[
+                                                                              'adult']);
+
+                                                                      _onCategorySelected(
+                                                                          selected!,
+                                                                          document[
+                                                                              'tid']);
+                                                                    },
                                                                   ),
                                                                 ),
-                                                                Text(
-                                                                  '🕐' +
-                                                                    document['date'],
-                                                                  style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize: 20,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '🌟' +
-                                                                      document['points'],
-                                                                  style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize: 25,
-                                                                  ),
-                                                                ),
-                                                                    if(document['state']=="Not complete")
-                                        Padding(
-                                          padding: EdgeInsets.all(0),
-                                          child: CheckboxListTile(
-
-                                            selected: false,
-
-                                            value: _selecteCategorysID.contains(document['tid']),
-                                            onChanged: (selected) {
-                                              print(document['state']);
-                                             print(document);
-                                               updateTask(document['tid'],
-                                                  document['adult']);
-
-                                              _onCategorySelected(selected!,
-                                                  document['tid']);
-                                             
-                                            },
-                                            
-
-                                          ),
-                                        ), 
-                                                              ],
-                                                            ),
+                                                            ],
                                                           ),
                                                         ),
-                                                      ));
-                                                },
-                                                itemCount:
-                                                  snapshot.data!.docs.length,
-                                                gridDelegate:
-                                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                                        crossAxisCount: 2,
-                                                        mainAxisSpacing: 8,
-                                                        crossAxisSpacing: 8),
+                                                      ),
+                                                    );
+                                                  },
+                                                  itemCount: snapshot
+                                                      .data!.docs.length,
+                                                ),
                                               ),
-                                            ),
-                                    );
-                                  }
-                                ),
+                                      );
+                                    }),
                                 StreamBuilder(
-                                  stream: _stream2,
-                                  builder: (context, snapshot) {
-                                    return Center(
-                                      child: !snapshot.hasData
-                                          ? Center(
-                                              child: Text(
-                                                'لايوجد مهام',
-                                                style: TextStyle(
-                                                    fontSize: 30,
-                                                    color: Colors.grey),
-                                              ),
-                                            )
-                                          : Container(
-                                              child: GridView.builder(
-                                                itemBuilder: (ctx, index) {
-                                                      Map<String, dynamic> document =
-                              snapshot.data!.docs[index].data()
-                                  as Map<String, dynamic>;
-                                                  String iconData = '';
-                                                  Color iconColor;
-                                                  switch (document['category']) {
-                                                    case "النظافة":
-                                                      // iconData = Icons.wash;
-                                                      iconData = '🫧';
-                                
-                                                      iconColor = Color(0xffff6d6e);
-                                                      break;
-                                                    case "الأكل":
-                                                      // iconData = Icons.flatware_rounded;
-                                                      iconData = '🍽';
-                                                      iconColor = Color(0xfff29732);
-                                                      break;
-                                
-                                                    case "الدراسة":
-                                                      // iconData = Icons.auto_stories_outlined;
-                                                      iconData = '📚';
-                                                      iconColor = Color(0xff6557ff);
-                                                      break;
-                                
-                                                    case "تطوير الشخصية":
-                                                      //  iconData = Icons.border_color_outlined;
-                                                      iconData = '📖';
-                                                      iconColor = Color(0xff2bc8d9);
-                                                      break;
-                                
-                                                    case "الدين":
-                                                      //  iconData = Icons.brightness_4_rounded;
-                                                      iconData = '🕌';
-                                                      iconColor = Color(0xff234ebd);
-                                                      break;
-                                                    default:
-                                                      // iconData = Icons.brightness_4_rounded;
-                                                      iconColor = Color(0xff6557ff);
-                                                  }
-                                                  return Card(
-                                                      elevation: 5,
-                                                      margin: EdgeInsets.symmetric(
-                                                        vertical: 10,
-                                                        horizontal: 10,
-                                                      ),
-                                                      child: Container(
-                                                        height: 150,
-                                                        color:
-                                                            iconColor, //Colors.primaries[Random().nextInt(myColors.length)],
-                                
-                                                        child: new Directionality(
-                                                          textDirection:
-                                                              TextDirection.rtl,
-                                                          child: new GridTile(
-                                                            child: Column(
-                                                              children: [
-                                       
-                                                                SizedBox(
-                                                                    height: 35),
-                                               
-                                                                Text(
-                                                                  iconData +
-                                                                
-                                                                         document['taskName'],
-                                                                  style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize: 25,
+                                    stream: _stream2,
+                                    builder: (context, snapshot) {
+                                      return Center(
+                                        child: !snapshot.hasData
+                                            ? Center(
+                                                child: Text(
+                                                  'لايوجد مهام',
+                                                  style: TextStyle(
+                                                      fontSize: 30,
+                                                      color: Colors.grey),
+                                                ),
+                                              )
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(20.0),
+                                                child: GridView.builder(
+                                                  gridDelegate:
+                                                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                          maxCrossAxisExtent:
+                                                              200,
+                                                          childAspectRatio:
+                                                             1,
+                                                          crossAxisSpacing: 20,
+                                                          mainAxisSpacing: 20),
+                                                  itemBuilder: (ctx, index) {
+                                                    Map<String, dynamic>
+                                                        document = snapshot
+                                                                .data!
+                                                                .docs[index]
+                                                                .data()
+                                                            as Map<String,
+                                                                dynamic>;
+                                                    String iconData = '';
+                                                    Color iconColor;
+                                                    switch (
+                                                        document['category']) {
+                                                      case "النظافة":
+                                                        // iconData = Icons.wash;
+                                                        iconData = '🫧';
+
+                                                        iconColor =
+                                                            Color(0xffff6d6e);
+                                                        break;
+                                                      case "الأكل":
+                                                        // iconData = Icons.flatware_rounded;
+                                                        iconData = '🍽';
+                                                        iconColor =
+                                                            Color(0xfff29732);
+                                                        break;
+
+                                                      case "الدراسة":
+                                                        // iconData = Icons.auto_stories_outlined;
+                                                        iconData = '📚';
+                                                        iconColor =
+                                                            Color(0xff6557ff);
+                                                        break;
+
+                                                      case "تطوير الشخصية":
+                                                        //  iconData = Icons.border_color_outlined;
+                                                        iconData = '📖';
+                                                        iconColor =
+                                                            Color(0xff2bc8d9);
+                                                        break;
+
+                                                      case "الدين":
+                                                        //  iconData = Icons.brightness_4_rounded;
+                                                        iconData = '🕌';
+                                                        iconColor =
+                                                            Color(0xff234ebd);
+                                                        break;
+                                                      default:
+                                                        // iconData = Icons.brightness_4_rounded;
+                                                        iconColor =
+                                                            Color(0xff6557ff);
+                                                    }
+                                                    return Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color:
+                                                                    iconColor,
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    offset:
+                                                                        const Offset(
+                                                                      0,
+                                                                      0.5,
+                                                                    ),
+                                                                    blurRadius:
+                                                                        5,
+                                                                    spreadRadius:
+                                                                        0.05,
+                                                                  ), //BoxShadow
+                                                                  //BoxShadow
+                                                                ],
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            15)),
+                                                        child: Container(
+                                                          height: 150,
+                                                          color:
+                                                              iconColor, //Colors.primaries[Random().nextInt(myColors.length)],
+
+                                                          child:
+                                                              new Directionality(
+                                                            textDirection:
+                                                                TextDirection
+                                                                    .rtl,
+                                                            child: new GridTile(
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(
+                                                                      height:
+                                                                          35),
+                                                                  Text(
+                                                                    iconData +
+                                                                        document[
+                                                                            'taskName'],
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          25,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  '🕐' +
-                                                                     document['date'],
-                                                                  style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize: 20,
+                                                                  Text(
+                                                                    '🕐' +
+                                                                        document[
+                                                                            'date'],
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          20,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  '🌟' +
-                                                                      document['points'],
-                                                                  style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize: 25,
+                                                                  Text(
+                                                                    '🌟' +
+                                                                        document[
+                                                                            'points'],
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          25,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                  ],
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ));
-                                                },
-                                                itemCount:
-snapshot.data!.docs.length,                                               
- gridDelegate:
-                                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                                        crossAxisCount: 2,
-                                                        mainAxisSpacing: 8,
-                                                        crossAxisSpacing: 8),
+                                                        ));
+                                                  },
+                                                  itemCount: snapshot
+                                                      .data!.docs.length,
+                                                ),
                                               ),
-                                            ),
-                                    );
-                                  }
-                                )
+                                      );
+                                    })
                               ],
                             ),
                           ),
@@ -450,7 +540,7 @@ snapshot.data!.docs.length,
                   ),
                 ],
               ))),
-     floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
         width: 150,
         height: 60,
@@ -484,8 +574,23 @@ snapshot.data!.docs.length,
         .doc(FirebaseAuth.instance.currentUser!.email)
         .snapshots()
         .listen((DocumentSnapshot snapshot) {
-      points = snapshot.get("points");
+      points2 = snapshot.get("points");
+      adultID = snapshot.get("uid");
       //rid = snapshot.get("rid");
+      setState(() {});
+    });
+  }
+
+  _getUserDetail2() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(adultID)
+        .collection('kids')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .snapshots()
+        .listen((DocumentSnapshot snapshot) {
+      points = snapshot.get("points");
+
       setState(() {});
     });
   }

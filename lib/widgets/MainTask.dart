@@ -1,11 +1,13 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+
+import 'dart:async';
+
 import 'package:earnilyapp/widgets/add_task.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:earnilyapp/widgets/view_task.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-int pn = 0;
 
 class MainTask extends StatefulWidget {
   const MainTask({super.key});
@@ -33,11 +35,22 @@ class _MainTaskState extends State<MainTask> {
         );
   }
 
-  int points = 0;
   Future updateTask(String id, String adult, String kid, int point) async {
     showToastMessage('تم قبول النشاط');
     Navigator.of(context).pop();
+    int pn = 0;
+    StreamSubscription<DocumentSnapshot<Map<String, dynamic>>> snapshot =
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(adult)
+            .collection('kids')
+            .doc(kid + '@gmail.com')
+            .snapshots()
+            .listen((DocumentSnapshot snapshot) {
+      pn = snapshot.get("points")+point ;
+      
 
+    });
     // points += point;
     await FirebaseFirestore.instance
         .collection('users')
@@ -57,14 +70,12 @@ class _MainTaskState extends State<MainTask> {
         .doc(adult)
         .collection('kids')
         .doc(kid + '@gmail.com')
-        .update({'points': point + pn});
+        .update({'points':pn});
 
     await FirebaseFirestore.instance
         .collection('kids')
         .doc(kid + '@gmail.com')
-        .update({'points': point + pn});
-
-    pn = point;
+        .update({'points': pn});
   }
 
   Future delete(String id, String adult, String kid, String msg) async {
@@ -231,9 +242,7 @@ class _MainTaskState extends State<MainTask> {
     if (i == "Not complete") {
       return 'غير مكتمل🔴';
     } else if (i == "pending") {
-      if (dd == 0)
-       
-      dd++;
+      if (dd == 0) dd++;
       return 'انتظار موافقتك🟠';
     } else
       return 'مكتمل🟢';
@@ -426,7 +435,7 @@ class _MainTaskState extends State<MainTask> {
                                                                     document[
                                                                         'adult'],
                                                                     document[
-                                                                        'asignedKid'])
+                                                                        'kidpass'])
                                                               },
                                                             ),
                                                             if (document[
@@ -448,7 +457,7 @@ class _MainTaskState extends State<MainTask> {
                                                                         document[
                                                                             'adult'],
                                                                         document[
-                                                                            'asignedKid'],
+                                                                            'kidpass'],
                                                                         document[
                                                                             'points'])
                                                                   else
@@ -612,7 +621,7 @@ class _MainTaskState extends State<MainTask> {
                                                                         document[
                                                                             'adult'],
                                                                         document[
-                                                                            'asignedKid'],
+                                                                            'kidpass'],
                                                                         document[
                                                                             'points'])
                                                                   else
