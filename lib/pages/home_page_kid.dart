@@ -21,7 +21,6 @@ class HomePageKid extends StatefulWidget {
 
 class _HomePageKidState extends State<HomePageKid> {
   bool isLoading = false;
-  String image = '';
   var firstColor = Color(0xff5b86e5), secondColor = Color(0xff36d1dc);
   int _selectedIndex = 0;
 
@@ -149,7 +148,6 @@ class _HomePageKidState extends State<HomePageKid> {
                       color: Colors.white,
                     ),
                   ),
-                  
                   ListTile(
                     title: Text(
                       textAlign: TextAlign.right,
@@ -205,7 +203,6 @@ class _HomePageKidState extends State<HomePageKid> {
             color: Colors.white,
             size: 35,
           ),
-       
         ],
       ), /*
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -232,8 +229,6 @@ class _HomePageKidState extends State<HomePageKid> {
 
   File? file;
   String imageUrl = "";
-
- 
 
   loadingTrue() {
     isLoading = true;

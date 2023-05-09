@@ -17,7 +17,7 @@ class onbording extends StatefulWidget {
 class _onbordingState extends State<onbording> {
   PageController _controller = PageController();
 
-  bool last = false;
+  bool lastPag = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _onbordingState extends State<onbording> {
           controller: _controller,
           onPageChanged: (value) {
             setState(() {
-              last = (value == 2);
+              lastPag = (value == 2);
             });
           },
           children: [
@@ -67,7 +67,7 @@ class _onbordingState extends State<onbording> {
                     dotColor: Colors.grey,
                     activeDotColor: Colors.deepPurple),
               ),
-              last
+              lastPag
                   ? GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
