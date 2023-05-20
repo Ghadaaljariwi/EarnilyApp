@@ -30,7 +30,7 @@ class _HomePageKidState extends State<HomePageKid> {
     });
   }
 
-  void _showDialogCancel() {
+  void _showLogoutDialog() {
     showDialog(
       //barrierDismissible = false;
       context: context,
@@ -162,7 +162,7 @@ class _HomePageKidState extends State<HomePageKid> {
                       color: Colors.white,
                       size: 30,
                     ),
-                    onTap: _showDialogCancel,
+                    onTap: _showLogoutDialog,
                   ),
 
                   /* child: MaterialButton(
