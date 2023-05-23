@@ -32,8 +32,7 @@ class _kidrewardState extends State<kidreward> {
   }
 
   int getBirthday(Timestamp date) {
-    int birth = AgeCalculator.age(date.toDate()).years;
-    return birth;
+    return AgeCalculator.age(date.toDate()).years;
   }
 
   String set(String gender) {
