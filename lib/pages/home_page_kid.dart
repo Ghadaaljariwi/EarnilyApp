@@ -21,6 +21,7 @@ class HomePageKid extends StatefulWidget {
 
 class _HomePageKidState extends State<HomePageKid> {
   bool isLoading = false;
+
   var firstColor = Color(0xff5b86e5), secondColor = Color(0xff36d1dc);
   int _selectedIndex = 0;
 
