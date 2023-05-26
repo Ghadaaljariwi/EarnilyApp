@@ -10,7 +10,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../reuasblewidgets.dart';
 import '../widgets/new_text.dart';
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -31,7 +30,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int count = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     print(name);
     print(email);

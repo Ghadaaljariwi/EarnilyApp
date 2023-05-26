@@ -108,7 +108,7 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
         );
   }
 
-  Future<void> _validate() async {
+  Future<void> _validate() async { // <emailController, emailController == '  '
     if (nameController.text.isEmpty || value == null || date == null) {
       _showDialog("ادخل البيانات المطلوبة");
     } else {
@@ -204,8 +204,8 @@ class _AddKids_screen_1 extends State<AddKids_screen_1> {
           snapshot.docs[i].data() as Map<String, dynamic>;
 
       String name = document['name'];
-String pass = document['pass'];
-      kid kididentifier = kid(name:name, email:pass);
+      String pass = document['pass'];
+      kid kididentifier = kid(name: name, email: pass);
       _kidsNamesList.add(kididentifier);
     }
 
