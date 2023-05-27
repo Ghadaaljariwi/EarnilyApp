@@ -140,14 +140,16 @@ RegExp specialReg = RegExp(r".*[!@#$%^&*()_+\-=\[\]{};':" "\\|,.<>/?].*");
                             _showDialog();
 
                           }
-                          else if (_emailController.text.isEmpty ){
+                         if (_emailController.text.isEmpty ){
                             showToastMessage('الرجاء إدخال بريد الكتروني');
-                          } else if(!_emailController.text.contains('@')){
+                          } 
+                         if(!_emailController.text.contains('@')){
                             showToastMessage('@ الرجاء إدخال بريد الكتروني صحيح يحتوي على');
-                          } else if(_passController.text.isEmpty){
+                          } 
+                         if(_passController.text.isEmpty){
                             showToastMessage('الرجاء إدخال كلمة مرور ');
                           }
-                          else
+                          return
                             await FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
                                     email: _emailController.text.trim(),
