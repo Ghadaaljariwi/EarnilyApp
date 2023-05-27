@@ -602,18 +602,7 @@ class _Add_taskState extends State<Add_task> {
             10,
           ),
         ),
-        label: Text(
-          label,
-          style: TextStyle(
-            color: categoty.isEmpty
-                ? Colors.white
-                : categoty == label
-                    ? Colors.white
-                    : Colors.black,
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+   label: textChip(label),
         labelPadding: EdgeInsets.symmetric(
           horizontal: 17,
           vertical: 3.5,
@@ -640,18 +629,8 @@ class _Add_taskState extends State<Add_task> {
             10,
           ),
         ),
-        label: Text(
-          label,
-          style: TextStyle(
-            color: points.isEmpty
-                ? Colors.white
-                : points == label
-                    ? Colors.white
-                    : Colors.black,
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+         label: textChip(label),
+
         labelPadding: EdgeInsets.symmetric(
           horizontal: 17,
           vertical: 3.5,
@@ -659,6 +638,19 @@ class _Add_taskState extends State<Add_task> {
       ),
     );
   }
-
+ Widget textChip(String label) {
+    return Text(
+      label,
+      style: TextStyle(
+        color: categoty.isEmpty
+            ? Colors.white
+            : categoty == label
+                ? Colors.white
+                : Colors.black,
+        fontSize: 15,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
   //notification
 }
