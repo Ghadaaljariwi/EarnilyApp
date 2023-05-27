@@ -573,7 +573,7 @@ class _kidTasksState extends State<kidTasks> {
         .doc(FirebaseAuth.instance.currentUser!.email)
         .snapshots()
         .listen((DocumentSnapshot snapshot) {
-      points2 = snapshot.get("points");
+      kisPoints = snapshot.get("points");
       adultID = snapshot.get("uid");
       //rid = snapshot.get("rid");
       setState(() {});
