@@ -18,7 +18,7 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   final TextEditingController _emailController = TextEditingController();
- void showToastMessage(String message) {
+  void showToastMessage(String message) {
     //raghad
     Fluttertoast.showToast(
         msg: message, //message to show toast
@@ -31,6 +31,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         fontSize: 16.0 //message font size
         );
   }
+
   void _showDialog() {
     showDialog(
         context: context,
@@ -94,44 +95,30 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         _emailController),
                     SizedBox(height: 20),
 
-                    
-                    
-
                     NewButton(
                         text: 'إرسال',
                         width: MediaQuery.of(context).size.width,
                         height: 110,
                         onClick: () async {
-                          if (_emailController.text.isEmpty 
-                              ) {
+                          if (_emailController.text.isEmpty) {
                             _showDialog();
                           } else
                             await FirebaseAuth.instance
-                                .sendPasswordResetEmail(email: _emailController.text)
-                                
+                                .sendPasswordResetEmail(
+                                    email: _emailController.text)
                                 .then((value) {
-                                  
-                                  showToastMessage('تم الارسال بنجاح');
+                              showToastMessage('تم الارسال بنجاح');
 
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => SignInScreen()));
-                            }
-                            ).onError((error, stackTrace) {
+                            }).onError((error, stackTrace) {
                               // showToastMessage('خطأ ${error.toString()}');
                               _showDialog();
                               print("error ${error.toString()}");
                             });
                         }),
-
-                    
-
-                    
-
-                    
-
-                   
                   ],
                 ))),
       ),

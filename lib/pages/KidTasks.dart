@@ -14,7 +14,7 @@ class kidTasks extends StatefulWidget {
 
 String adultID = '';
 int points = 0;
-int points2 = 0;
+int kisPoints = 0;
 String kidName = '';
 
 class _kidTasksState extends State<kidTasks> {
@@ -382,8 +382,7 @@ class _kidTasksState extends State<kidTasks> {
                                                       const SliverGridDelegateWithMaxCrossAxisExtent(
                                                           maxCrossAxisExtent:
                                                               200,
-                                                          childAspectRatio:
-                                                             1,
+                                                          childAspectRatio: 1,
                                                           crossAxisSpacing: 20,
                                                           mainAxisSpacing: 20),
                                                   itemBuilder: (ctx, index) {

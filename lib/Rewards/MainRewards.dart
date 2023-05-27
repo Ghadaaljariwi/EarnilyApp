@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 import 'package:age_calculator/age_calculator.dart';
 
 class MainRewards extends StatefulWidget {
@@ -17,18 +16,13 @@ class MainRewards extends StatefulWidget {
 }
 
 class _MainRewardsState extends State<MainRewards> {
- 
   final user = FirebaseAuth.instance.currentUser!;
 
- 
-  
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
- 
   }
-
 
   int getBirthday(Timestamp date) {
     int birth = AgeCalculator.age(date.toDate()).years;
@@ -66,8 +60,8 @@ class _MainRewardsState extends State<MainRewards> {
     return myColors[index];
   }
 
-void _showRewardSelected()  {
-   showDialog(
+  void _showRewardSelected() {
+    showDialog(
         context: context,
         builder: (context) {
           // set up the buttons
@@ -80,30 +74,25 @@ void _showRewardSelected()  {
             ),
             onPressed: Navigator.of(context).pop,
           );
-           return AlertDialog(
-            title: Text(
-              "طفلك اختار هذه المكافاة ",
-              textAlign: TextAlign.right,
-              style: TextStyle(color: Colors.deepPurple, fontSize: 20),
-            ),
-            actions: [
-              cancelButton,
-            ]
-
-);
-        }
-   );
-}
+          return AlertDialog(
+              title: Text(
+                "طفلك اختار هذه المكافاة ",
+                textAlign: TextAlign.right,
+                style: TextStyle(color: Colors.deepPurple, fontSize: 20),
+              ),
+              actions: [
+                cancelButton,
+              ]);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _stream = FirebaseFirestore.instance
-  
-          .collection('users')
-      .doc(user.uid)
-      .collection('reward')
+        .collection('users')
+        .doc(user.uid)
+        .collection('reward')
         .snapshots();
-
 
     return Scaffold(
       appBar: AppBar(
@@ -121,61 +110,47 @@ void _showRewardSelected()  {
         ),
       ),
       body: StreamBuilder(
-        stream: _stream,
-        builder: (context, snapshot) {
-          return new Directionality(
-            textDirection: ui.TextDirection.rtl,
-            child: !snapshot.hasData
-                ? Center(
-                    child: Text(
-                      "لا يوجد لديك مكافآت \n قم بالإضافة الآن",
-                      style: TextStyle(fontSize: 30, color: Colors.grey),
-                    ),
-                  )
-                :Padding(
-                                                                   padding:     const EdgeInsets.all(20.0),
-
+          stream: _stream,
+          builder: (context, snapshot) {
+            return new Directionality(
+              textDirection: ui.TextDirection.rtl,
+              child: !snapshot.hasData
+                  ? Center(
+                      child: Text(
+                        "لا يوجد لديك مكافآت \n قم بالإضافة الآن",
+                        style: TextStyle(fontSize: 30, color: Colors.grey),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(20.0),
                       child: GridView.builder(
-                         gridDelegate:
-                                                      const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                          maxCrossAxisExtent:
-                                                              200
-                                                              ,
-                                                          childAspectRatio:
-                                                              29 / 30,
-                                                          crossAxisSpacing: 20,
-                                                          mainAxisSpacing: 20),
-                                                  
-                        
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 200,
+                                childAspectRatio: 29 / 30,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20),
                         itemBuilder: (ctx, index) {
                           Map<String, dynamic> document =
                               snapshot.data!.docs[index].data()
                                   as Map<String, dynamic>;
                           return Container(
-                             alignment:
-                                                          Alignment.center,
-                                                      decoration: BoxDecoration(
-                                                          color: chooseColor(index),
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                              color:
-                                                                  Colors.black,
-                                                              offset:
-                                                                  const Offset(
-                                                                0,
-                                                                0.5,
-                                                              ),
-                                                              blurRadius: 5,
-                                                              spreadRadius:
-                                                                  0.05,
-                                                            ), //BoxShadow
-                                                            //BoxShadow
-                                                          ],
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      15)),
-                                       
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: chooseColor(index),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black,
+                                      offset: const Offset(
+                                        0,
+                                        0.5,
+                                      ),
+                                      blurRadius: 5,
+                                      spreadRadius: 0.05,
+                                    ), //BoxShadow
+                                    //BoxShadow
+                                  ],
+                                  borderRadius: BorderRadius.circular(15)),
                               child: Container(
                                 height: 200,
                                 color: chooseColor(
@@ -208,27 +183,24 @@ void _showRewardSelected()  {
                                             fontSize: 20,
                                           ),
                                         ),
-                                              if (document['state'] =='selected')
-                                    IconButton(
-                                      icon: Icon(Icons.check),
-                                      color: Colors.black,
-                                      onPressed: () =>{
-                                        _showRewardSelected()
-
-                                            },
-                                      ),
-                                        ],
+                                        if (document['state'] == 'selected')
+                                          IconButton(
+                                            icon: Icon(Icons.check),
+                                            color: Colors.black,
+                                            onPressed: () =>
+                                                {_showRewardSelected()},
+                                          ),
+                                      ],
                                     ),
                                   ),
                                 ),
                               ));
                         },
                         itemCount: snapshot.data!.docs.length,
-           
                       ),
-                    ),   );
-        }
-      ),
+                    ),
+            );
+          }),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
       floatingActionButton: FloatingActionButton(

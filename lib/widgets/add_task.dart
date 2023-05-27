@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_const_constructors
+// ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'package:earnilyapp/models/kid.dart';
 import 'package:earnilyapp/screen/profile_screen.dart';
@@ -208,7 +208,7 @@ class _Add_taskState extends State<Add_task> {
       'state': 'Not complete',
       'tid': tid,
       'adult': user.uid,
-      'kidpass':email,
+      'kidpass': email,
     });
 
     await FirebaseFirestore.instance
@@ -225,7 +225,7 @@ class _Add_taskState extends State<Add_task> {
       'state': 'Not complete',
       'tid': tid,
       'adult': user.uid,
-      'kidpass':email,
+      'kidpass': email,
     });
   }
 
@@ -322,25 +322,29 @@ class _Add_taskState extends State<Add_task> {
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(15)),
                       child: TextFormField(
-                        controller: _nameController,
-
-                        textAlign: TextAlign.right,
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: ' اسم النشاط الجديد',
-                            hintTextDirection: ui.TextDirection.rtl,
-                            hintStyle: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 17,
-                            ),
-                            contentPadding: EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                            )),
-                        validator: (val) =>
-                            val!.isEmpty ? 'اختر اسم النشاط' : null,
-                        //onChanged: (val) => setState(() => _currentName = val),
-                      ),
+                          controller: _nameController,
+                          textAlign: TextAlign.right,
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: ' اسم النشاط الجديد',
+                              hintTextDirection: ui.TextDirection.rtl,
+                              hintStyle: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 17,
+                              ),
+                              contentPadding: EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                              )),
+                          validator: (val) {
+                            var msg;
+                            if (val!.isEmpty) {
+                              msg = 'اختر اسم النشاط';
+                            }
+                            return msg;
+                          }
+                          //onChanged: (val) => setState(() => _currentName = val),
+                          ),
                     ),
                     SizedBox(
                       height: 10,
@@ -657,5 +661,4 @@ class _Add_taskState extends State<Add_task> {
   }
 
   //notification
-
 }
