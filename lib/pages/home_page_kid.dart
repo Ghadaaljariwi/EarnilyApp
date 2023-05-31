@@ -31,7 +31,7 @@ class _HomePageKidState extends State<HomePageKid> {
     });
   }
 
-  void _showDialogCancel() {
+  void _showLogoutDialog() {
     showDialog(
       //barrierDismissible = false;
       context: context,
@@ -149,7 +149,6 @@ class _HomePageKidState extends State<HomePageKid> {
                       color: Colors.white,
                     ),
                   ),
-                  
                   ListTile(
                     title: Text(
                       textAlign: TextAlign.right,
@@ -164,7 +163,7 @@ class _HomePageKidState extends State<HomePageKid> {
                       color: Colors.white,
                       size: 30,
                     ),
-                    onTap: _showDialogCancel,
+                    onTap: _showLogoutDialog,
                   ),
 
                   /* child: MaterialButton(
@@ -205,7 +204,6 @@ class _HomePageKidState extends State<HomePageKid> {
             color: Colors.white,
             size: 35,
           ),
-       
         ],
       ), /*
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -232,8 +230,6 @@ class _HomePageKidState extends State<HomePageKid> {
 
   File? file;
   String imageUrl = "";
-
- 
 
   loadingTrue() {
     isLoading = true;

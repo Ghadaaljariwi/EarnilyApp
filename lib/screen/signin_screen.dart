@@ -20,8 +20,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   RegExp numReg = RegExp(r".*[0-9].*");
-RegExp letterReg = RegExp(r".*[A-Za-z].*");
-RegExp specialReg = RegExp(r".*[!@#$%^&*()_+\-=\[\]{};':" "\\|,.<>/?].*");
+  RegExp letterReg = RegExp(r".*[A-Za-z].*");
+  RegExp specialReg = RegExp(r".*[!@#$%^&*()_+\-=\[\]{};':" "\\|,.<>/?].*");
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
@@ -54,7 +54,7 @@ RegExp specialReg = RegExp(r".*[!@#$%^&*()_+\-=\[\]{};':" "\\|,.<>/?].*");
         });
   }
 
-    void showToastMessage(String message) {
+  void showToastMessage(String message) {
     //raghad
     Fluttertoast.showToast(
         msg: message, //message to show toast
@@ -70,8 +70,6 @@ RegExp specialReg = RegExp(r".*[!@#$%^&*()_+\-=\[\]{};':" "\\|,.<>/?].*");
         fontSize: 16.0 //message font size
         );
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -126,9 +124,9 @@ RegExp specialReg = RegExp(r".*[!@#$%^&*()_+\-=\[\]{};':" "\\|,.<>/?].*");
                         fontWeight: FontWeight.w500,
                         onClick: () {
                           Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ForgotPassword()));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgotPassword()));
                         }),
 
                     NewButton(
@@ -136,30 +134,33 @@ RegExp specialReg = RegExp(r".*[!@#$%^&*()_+\-=\[\]{};':" "\\|,.<>/?].*");
                         width: MediaQuery.of(context).size.width,
                         height: 110,
                         onClick: () async {
-                          if(_emailController.text.isEmpty &&_passController.text.isEmpty ){
+                          if (_emailController.text.isEmpty &&
+                              _passController.text.isEmpty) {
                             _showDialog();
-
                           }
-                          else if (_emailController.text.isEmpty ){
+                          if (_emailController.text.isEmpty) {
                             showToastMessage('الرجاء إدخال بريد الكتروني');
-                          } else if(!_emailController.text.contains('@')){
-                            showToastMessage('@ الرجاء إدخال بريد الكتروني صحيح يحتوي على');
-                          } else if(_passController.text.isEmpty){
+                          }
+                          if (!_emailController.text.contains('@')) {
+                            showToastMessage(
+                                '@ الرجاء إدخال بريد الكتروني صحيح يحتوي على');
+                          }
+                          if (_passController.text.isEmpty) {
                             showToastMessage('الرجاء إدخال كلمة مرور ');
                           }
-                          else
-                            await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                                    email: _emailController.text.trim(),
-                                    password: _passController.text.trim())
-                                .then((value) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage()));
-                            }).onError((error, stackTrace) {
-                              showToastMessage("البريد الإلكتروني أو كلمة المرور غير صحيحة");
-                            });
+                          return await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: _emailController.text.trim(),
+                                  password: _passController.text.trim())
+                              .then((value) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()));
+                          }).onError((error, stackTrace) {
+                            showToastMessage(
+                                "البريد الإلكتروني أو كلمة المرور غير صحيحة");
+                          });
                         }),
 
                     Row(
@@ -207,8 +208,6 @@ RegExp specialReg = RegExp(r".*[!@#$%^&*()_+\-=\[\]{};':" "\\|,.<>/?].*");
                             ),
                           );
                         }),
-
-                  
                   ],
                 ))),
       ),

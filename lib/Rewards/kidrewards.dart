@@ -32,8 +32,7 @@ class _kidrewardState extends State<kidreward> {
   }
 
   int getBirthday(Timestamp date) {
-    int birth = AgeCalculator.age(date.toDate()).years;
-    return birth;
+    return AgeCalculator.age(date.toDate()).years;
   }
 
   String set(String gender) {
@@ -115,7 +114,7 @@ class _kidrewardState extends State<kidreward> {
       print('heree');
       print(kidPoint);
       print(adultID);
-print(pass);
+      print(pass);
       kidPoint = kidPoint - rewardPoint;
       await FirebaseFirestore.instance
           .collection('users')
@@ -189,49 +188,35 @@ print(pass);
                       ),
                     )
                   : Padding(
-                                                                   padding:     const EdgeInsets.all(20.0),
-
+                      padding: const EdgeInsets.all(20.0),
                       child: GridView.builder(
-                         gridDelegate:
-                                                      const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                          maxCrossAxisExtent:
-                                                              200
-                                                              ,
-                                                          childAspectRatio:
-                                                              29 / 30,
-                                                          crossAxisSpacing: 20,
-                                                          mainAxisSpacing: 20),
-                                                  
-                        
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 200,
+                                childAspectRatio: 29 / 30,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20),
                         itemBuilder: (ctx, index) {
                           Map<String, dynamic> document =
                               snapshot.data!.docs[index].data()
                                   as Map<String, dynamic>;
                           return Container(
-                             alignment:
-                                                          Alignment.center,
-                                                      decoration: BoxDecoration(
-                                                          color: chooseColor(index),
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                              color:
-                                                                  Colors.black,
-                                                              offset:
-                                                                  const Offset(
-                                                                0,
-                                                                0.5,
-                                                              ),
-                                                              blurRadius: 5,
-                                                              spreadRadius:
-                                                                  0.05,
-                                                            ), //BoxShadow
-                                                            //BoxShadow
-                                                          ],
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      15)),
-                                       
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: chooseColor(index),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black,
+                                      offset: const Offset(
+                                        0,
+                                        0.5,
+                                      ),
+                                      blurRadius: 5,
+                                      spreadRadius: 0.05,
+                                    ), //BoxShadow
+                                    //BoxShadow
+                                  ],
+                                  borderRadius: BorderRadius.circular(15)),
                               child: Container(
                                 height: 200,
                                 color: chooseColor(
@@ -293,7 +278,6 @@ print(pass);
                               ));
                         },
                         itemCount: snapshot.data!.docs.length,
-           
                       ),
                     ),
             );
